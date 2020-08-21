@@ -1,0 +1,59 @@
+@charset "UTF-8";
+*{
+    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Kosugi Maru', sans-serif;
+}
+.wf-nicomoji { font-family: "Nico Moji"; }
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url("../pic/SiteBG.jpg");
+}
+a,a:hover{
+    color: #000000;
+    text-decoration: none;
+}
+/*.f-box{
+    display: flex;
+    justify-content: flex-end;
+}*/
+.f-items{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+h1,h2,h3{
+    margin: 0;
+    font-family: "Nico Moji";
+}
+#title{
+    font-size: 7vw;
+    margin-top: 15vw;
+    margin-right: 5vw;
+}
+#phrase{
+    font-size: 2vw;
+    font-family: 'Kosugi Maru';
+    margin: 1vw 5vw 5vw 0;
+}
+.buttons{
+    text-align: right;
+}
+#LinkChat{
+    display: inline;
+    font-size: 4vw;
+    padding: 1vw;
+    border-radius: 50px;
+    background-color: rgba(19, 174, 103, 0.7);
+    margin-right:15vw;
+}
+#explain{
+    font-size: 1.5vw;
+    margin: 5vw 5vw 0 0;
+}
+@media screen and (max-width:959px){
+
+}
+@media screen and (min-width:480px){
+
+}

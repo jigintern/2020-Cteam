@@ -19,13 +19,16 @@ export default async function chat(ws) {
   for await (let data of ws) {
     const event = typeof data === "string" ? JSON.parse(data) : data;
 
+    let userObj;
+
     //退出
     if (isWebSocketCloseEvent(data)) {
+
       leaveGroup(userId, event.groupName);
+
       break;
     }
 
-    let userObj;
     switch (event.event) {
       //参加者が来たとき
       case "join":
@@ -44,7 +47,12 @@ export default async function chat(ws) {
 
         emitUserList(event.groupName);
 
-        //emitPreviousMessages(event.groupName, ws);
+        emitPreviousMessages(event.groupName, ws);
+
+        //入室メッセージを表示したい----
+        emitLoginMessage(userId);
+        //-----------------------------
+
         break;
 
       // メッセージを受け取ったとき
@@ -63,6 +71,23 @@ export default async function chat(ws) {
         break;
     }
   }
+}
+
+//ログイン時のメッセージ
+function emitLoginMessage(userId) {
+  const userObj = usersMap.get(userId);
+  const message = {
+    userId: "System",
+    name: "System",
+    message: `${userObj.name} is login this room`
+  };
+  const messages = messagesMap.get(userObj.groupName) || [];
+  messages.push(message);
+  messagesMap.set(userObj.groupName, messages);
+  emitMessage(userObj.groupName, message, "System");
+}
+
+function emitLogoutMsssage(userId) {
 }
 
 // グループ全員に名前を表示する関数
@@ -123,9 +148,19 @@ function leaveGroup(userId) {
   let users = groupsMap.get(userObj.groupName) || [];
 
   users = users.filter((u) => u.userId !== userId);
+
+  //退出ユーザー表示-----
+  emitLogoutMsssage(userId);
+  //-------------------
+
   groupsMap.set(userObj.groupName, users);
 
   usersMap.delete(userId);
+
+  //誰もいなければメッセージ削除
+  if(usersMap.size === 0) {
+    messagesMap.set(userObj.groupName, []);
+  }
 
   emitUserList(userObj.groupName);
 }

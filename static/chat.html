@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>いい感じのタイトル</title>
+  <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
@@ -15,19 +16,24 @@
     </div>
     <div class="chat-main">
       <div class="chat-header">
+
+        <!-- <div  class="leaveButton"> -->
+          <a href="/index.html" class="leaveButton">退出</a>　
+          <!-- <button id="leaveGroupBtn">退出</button> -->
+        <!-- </div> -->
+
         <div id="groupName" class="group-name">
           Javascript
         </div>
-        <div>
-          <button id="leaveGroupBtn">退出</button>
-        </div>
+
       </div>
       <div id="chatMessages" class="chat-messages">
       </div>
       <div class="chat-footer">
-        <form id="messageSendForm">
-          <input id="messageInput" type="text" placeholder="メッセージを入力">
-          <button>送信</button>
+        <form id="messageSendForm" class="chat-footer2">
+          <input id="messageInput" type="text" placeholder="メッセージを入力" class="inputMessage">
+          　
+          <button class="inputButton"></button>
         </form>
       </div>
     </div>

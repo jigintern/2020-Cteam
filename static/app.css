@@ -1,0 +1,216 @@
+
+.chat-sidebar{
+    display: none;
+
+}
+
+.chat-main{
+    /*display: grid;
+    height: 100%;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 1fr;*/
+}
+
+/* .chat-footer{
+    position: absolute;
+    bottom: 1%;
+} */
+
+/*.chat-header{
+    grid-row: 1;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 10% 1fr;
+    grid-template-rows: 1fr;
+}*/
+
+.chat-footer{
+    /*display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: 1fr;*/
+}
+
+.chat-footer2{
+    grid-row: 1;
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 10%;
+}
+.group-name{
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.chat-messages{
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.inputMessage{
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.inputButton{
+    grid-row: 3/4;
+    grid-column: 3/4;
+}
+
+  .chat-header, .chat-sidebar, .chat-footer {
+    padding: 15px;
+  }
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-color: #13AE67;
+  ;
+}
+
+html, body {
+  height: 100%;
+}
+
+input[type='text'] {
+  outline: 0;
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  border: 2px solid rgb(209, 209, 209);
+  transition: all 0.3s;
+  border-radius: 30px;
+}
+
+input[type='text']:focus {
+  border: 2px solid rgb(184, 184, 184);
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
+}
+
+.inputButton{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 20px;
+    border-color: transparent transparent transparent #FFEB27;
+}
+
+/* button {
+  outline: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--main-color);
+  background-color: #FFF;
+}
+
+button:active {
+  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  top: 1px;
+} */
+
+/* Chat page */
+.chat-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  color: #FFF;
+  background-color: var(--main-color);
+  overflow: hidden;
+}
+
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 60px;
+  align-self: center;
+}
+
+.chat-header .group-name {
+  flex: 1;
+}
+
+.chat-header .online-users {
+  width: 200px;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.chat-messages {
+  flex: 1;
+  background-color: #FFF;
+  color: var(--main-color-dark);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 95%;
+  border-radius: 20px;
+  align-self: center;
+}
+
+.chat-messages .message {
+  border-radius: 8px;
+  align-self: flex-start;
+  padding: 6px 10px;
+  background-color: #dedede;
+  margin-bottom: 10px;
+}
+
+.chat-messages .message .message-text {
+  font-size: 80%;
+}
+
+.chat-messages .message.message-to {
+  background-color: var(--main-color);
+  color: #FFF;
+  align-self: flex-end;
+}
+
+.chat-footer form {
+  display: flex;
+}
+
+
+
+.leaveButton {
+    display       : inline-block;
+    border-radius : 5%;          /* 角丸       */
+    font-size     : 10pt;        /* 文字サイズ */
+    text-align    : center;      /* 文字位置   */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 9px 11px;   /* 余白       */
+    background    : #ffeb27;     /* 背景色     */
+    color         : #000000;     /* 文字色     */
+    line-height   : 1em;         /* 1行の高さ  */
+    transition    : .3s;         /* なめらか変化 */
+    box-shadow    : 6px 6px 3px #666666;  /* 影の設定 */
+    border        : 2px solid #ffeb27;    /* 枠の指定 */
+    text-decoration: none
+  }
+  .leaveButton:hover {
+    box-shadow    : none;        /* カーソル時の影消去 */
+    color         : #ffeb27;     /* 背景色     */
+    background    : #000000;     /* 文字色     */
+  }

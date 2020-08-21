@@ -1,0 +1,38 @@
+@charset "UTF-8";
+*{
+    font-family: 'Kosugi Maru';
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+.form-header{
+    height: 5vw;
+    background-color: #13AE67;
+}
+h1{
+    margin: 0 0 0 2vw;
+    padding-top: 1vw;
+}
+.input-group{
+    margin-top: 2vw;
+    height: 5vw;
+}
+.input-group input[type='text'] {
+    font: 15px/24px sans-serif;
+    box-sizing: border-box;
+    width: 15%;
+    padding: 0.3em;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    color: #aaaaaa;
+    border:  1px solid #1b2538;
+	border-radius: 4px;
+}
+.form-content {
+    margin-left: 2vw;
+}
+.form-footer{
+    margin-top: 2vw;
+    margin-left: 2vw;
+}

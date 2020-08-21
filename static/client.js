@@ -51,9 +51,9 @@ function onConnectionOpen() {
 
 //メッセージを受け取ったとき
 function onMessageReceived(event) {
-  console.log("メッセージデータ：");
+  //console.log("メッセージデータ：");
   event = JSON.parse(event.data);
-  console.log(event);
+  //console.log(event);
   switch (event.event) {
     case "users":
       chatUsersCount.innerHTML = event.data.length;
@@ -75,7 +75,6 @@ function onMessageReceived(event) {
         el.scrollTop = 10000000;
       }
       break;
-
     case "previousMessages":
       event.data.forEach(appendMessage);
   }
@@ -84,13 +83,20 @@ function onMessageReceived(event) {
 //メッセージの埋め込み
 function appendMessage(message) {
   const messageEl = document.createElement("div");
-  messageEl.className = `message message-${
-    message.sender === "me" ? "to" : "from"
-  }`;
-  messageEl.innerHTML = `
-        ${message.sender === "me" ? "" : `<h4>${message.name}</h4>`}
-        <p class="message-text">${message.message}</p>
-      `;
+  if(message.sender === "me") {
+    messageEl.className = "message message-to";
+    messageEl.innerHTML = `<p class="message-text">${message.message}</p>`
+  }
+  else if(message.sender === "System" || (message.sender === undefined && message.name === "System")) {
+    messageEl.className = "message message-System";
+    messageEl.innerHTML = `<p class="message-system" style="color:red">${message.message}</p>`
+  }
+  else {
+    messageEl.className = "message message-from";
+    messageEl.innerHTML = `
+      <h4>${message.name}</h4>
+      <p class="message-text">${message.message}</p> `
+  }
   chatMessagesCtr.appendChild(messageEl);
 }
 

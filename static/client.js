@@ -1,5 +1,3 @@
-import chat, {user_count} from "./chat.js";
-
 // ↓vscodeの関係ないエラーを無くす
 // @ts-nocheck
 let ws;
@@ -39,8 +37,6 @@ function onConnectionOpen() {
   console.log(`接続しました`);
   isRedirect();
   const queryParams = getQueryParams();
-
-  user_count();
 
   if (!queryParams.name || !queryParams.group) {
     window.location.href = "index.html";
@@ -82,6 +78,10 @@ function onMessageReceived(event) {
       break;
     case "previousMessages":
       event.data.forEach(appendMessage);
+      break;
+    case "roomFull":
+      redirect();
+      break;
   }
 }
 

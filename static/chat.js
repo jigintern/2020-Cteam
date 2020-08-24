@@ -42,16 +42,28 @@ export default async function chat(ws) {
         usersMap.set(userId, userObj);
 
         const users = groupsMap.get(event.groupName) || [];
-        users.push(userObj);
-        groupsMap.set(event.groupName, users);
 
-        emitUserList(event.groupName);
+        //人数制限(とりあえず今は2人)
+        const roomUserMax = 2;
+        if(users.length >= roomUserMax) {
+          const tmp_event = {
+            event: "roomFull",
+            data: getDisplayUsers(event.groupName)
+          };
+          userObj.ws.send(JSON.stringify(tmp_event));
+        }
+        else {
+          users.push(userObj);
+          groupsMap.set(event.groupName, users);
 
-        emitPreviousMessages(event.groupName, ws);
+          emitUserList(event.groupName);
 
-        //入室メッセージを表示したい----
-        emitLoginMessage(userId);
-        //-----------------------------
+          emitPreviousMessages(event.groupName, ws);
+
+          //入室メッセージを表示したい----
+          emitLoginMessage(userId);
+          //-----------------------------
+        }
 
         break;
 
@@ -163,8 +175,4 @@ function leaveGroup(userId) {
   }
 
   emitUserList(userObj.groupName);
-}
-
-export function user_count(groupName) {
-  console.log("count member this room");
 }

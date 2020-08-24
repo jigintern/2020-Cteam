@@ -1,3 +1,5 @@
+import chat, {user_count} from "./chat.js";
+
 // ↓vscodeの関係ないエラーを無くす
 // @ts-nocheck
 let ws;
@@ -35,7 +37,11 @@ leaveGroupBtn.onclick = () => {
 // 接続したとき
 function onConnectionOpen() {
   console.log(`接続しました`);
+  isRedirect();
   const queryParams = getQueryParams();
+
+  user_count();
+
   if (!queryParams.name || !queryParams.group) {
     window.location.href = "index.html";
     return;
@@ -53,7 +59,6 @@ function onConnectionOpen() {
 function onMessageReceived(event) {
   //console.log("メッセージデータ：");
   event = JSON.parse(event.data);
-  //console.log(event);
   switch (event.event) {
     case "users":
       chatUsersCount.innerHTML = event.data.length;
@@ -89,7 +94,7 @@ function appendMessage(message) {
   }
   else if(message.sender === "System" || (message.sender === undefined && message.name === "System")) {
     messageEl.className = "message message-System";
-    messageEl.innerHTML = `<p class="message-system" style="color:red">${message.message}</p>`
+    messageEl.innerHTML = `<p class="message-system">${message.message}</p>`
   }
   else {
     messageEl.className = "message message-from";
@@ -111,4 +116,23 @@ function getQueryParams() {
   }
 
   return params;
+}
+
+function redirect() {
+  window.location.href = "./index.html";
+  return;
+}
+
+//リダイレクトするかしないか
+function isRedirect() {
+  //現在のURLを取得
+  const protocol = window.location.protocol;
+  const host = window.location.host;
+  //前のページであるはずのパス(今はindex.htmlから来るのを想定)
+  const pathname = "/index.html";
+  const previousPath = protocol + "//" + host + pathname;
+  //index.html以外から来たらリダイレクト
+  if(document.referrer !== previousPath) {
+    redirect();
+  }
 }

@@ -79,7 +79,7 @@ function emitLoginMessage(userId) {
   const message = {
     userId: "System",
     name: "System",
-    message: `${userObj.name} is login this room`
+    message: `${userObj.name} login this room`
   };
   const messages = messagesMap.get(userObj.groupName) || [];
   messages.push(message);
@@ -163,4 +163,8 @@ function leaveGroup(userId) {
   }
 
   emitUserList(userObj.groupName);
+}
+
+export function user_count(groupName) {
+  console.log("count member this room");
 }

@@ -19,12 +19,24 @@ a,a:visited{
     text-align: center;
 }
 #tytle{
-    margin: 5vh 0 5vh 0;
+    margin: 5vh 0 10vh 0;
+}
+#sorry{
+    font-size: 2vw;
+    margin-bottom: 10vh;
 }
 #top-button{
-    margin-top: 5vh;
+    margin-top: 10vh;
     font-size: 5vw;
-    padding: 0.5vw;
+    padding: 2vw;
     border: 1px solid #fff;
     border-radius: 50px;
+}
+@media screen and (max-width:480px){
+    #sorry{
+        font-size: 5vw;
+    }
+    #top-button{
+        font-size: 8vw;
+    }
 }

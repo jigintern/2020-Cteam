@@ -20,10 +20,4 @@ $(function () {
   $(document).on("click", "#a2", function () {
     next("2", $(this));
   });
-  $(document).on("click", "#a3", function () {
-    next("3", $(this));
-  });
-  $(document).on("click", "#a4", function () {
-    next("4", $(this));
-  });
 });

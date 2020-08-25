@@ -1,43 +1,58 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./stylesheet/Rooms.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
-  <title>いい感じの名前</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./stylesheet/top.css">
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+       $(function(){
+        /*chat-itemsの表示を消す*/
+         $('.chat-items').css("opacity","0");
+         $(window).scroll(function (){
+           $(".chat-items").each(function(){
+                var imgPos = $(this).offset().top;    
+                var scroll = $(window).scrollTop();
+                var windowHeight = $(window).height();
+            if (scroll > imgPos - windowHeight + windowHeight/15){
+                $("p, div",this).css("opacity","1" );
+                $("p",this).css({ 
+                    "font-size": "100px",
+                    "padding": "0 20px 40px"
+                });
+            } else {
+                $("p, div",this).css("opacity","0" );
+                $("p",this).css({ 
+                      "font-size": "20px",
+                      "padding": "20px"
+                    });
+                  }
+             });
+          });
+        });
+    </script>
+    <title>いい感じのタイトル</title>
 </head>
-
-<body class="page-login">
-  <form action="chat.html" class="login-form">
-    <div class="form-header">
-      <h1>いい感じの名前</h1>
+<body>
+    <div class="f-box"></div>
+        <h1 class="f-items" id="title">とてもよいアプリ</h1>
+        <p class="f-items" id="phrase">「なんとなく暇」はもう終わり。</p>
     </div>
-    <div class="form-content">
-      <div class="input-group">
-        <input type="text" placeholder="名前を入力" name="name">
-      </div>
-
-      <label>ルームリスト</label>
-      <label for="room1"  class=" category-item">
-        <input id="room1" type="radio" name="group" value="room1"> room1
-      </label>
-      <label for="room2" class="category-item">
-        <input id="room2" type="radio" name="group" value="room2"> room2
-      </label>
-      <label for="room3" class="category-item">
-        <input id="room3" type="radio" name="group" value="room3"> room3
-      </label>
-      <label for="room4" class="category-item">
-        <input id="room4" type="radio" name="group" value="room4"> room4
-      </label>
-      <label for="room5" class="category-item">
-        <input id="room5" type="radio" name="group" value="room5"> room5
-      </label>
+    <div class="buttons">
+        <a id="LinkChat" href="./question.html">話しに行く</a>
+        <p id="explain">このアプリは？scrolldown...</p>
     </div>
-    <div class="form-footer">
-      <button id="joinChatBtn">ログイン</button>
+    <div class="chat-items">
+        <h3 id="intro-question">その暇な時間、誰かと共有しませんか？</h3>
+        <h4 id="introduce">このアプリはチャット・ミニゲームなどで誰かと繋がり、</h4>
+            <div id="chat-list">
+                <p class="chat-list-L">こんにちは～！</p>
+                <p class="chat-list-R">今何してる？</p>
+                <p class="chat-list-L">それいいね！</p>
+                <p class="chat-list-R">イェーイ！</p>
+            </div>    
     </div>
-  </form>
 </body>
-
 </html>

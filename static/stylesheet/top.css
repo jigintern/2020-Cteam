@@ -13,6 +13,13 @@ a,a:hover{
     color: #000000;
     text-decoration: none;
 }
+a#LinkChat{
+    background: rgba(19, 174, 103,0.6);
+    transition: background-rgba 3s ease 1s;
+}
+a#LinkChat:hover{
+    background: rgba(19, 174, 103,1);
+}
 /*.f-box{
     display: flex;
     justify-content: flex-end;
@@ -22,7 +29,7 @@ a,a:hover{
     justify-content: flex-end;
     flex-wrap: wrap;
 }
-h1,h2,h3{
+h1,h2{
     margin: 0;
     font-family: "Nico Moji";
 }
@@ -38,22 +45,72 @@ h1,h2,h3{
 }
 .buttons{
     text-align: right;
+    margin-bottom: 20vh;
 }
 #LinkChat{
     display: inline;
     font-size: 4vw;
     padding: 1vw;
     border-radius: 50px;
-    background-color: rgba(19, 174, 103, 0.7);
     margin-right:15vw;
+    transition: rgba 0.3s ease;
 }
+
 #explain{
-    font-size: 1.5vw;
+    font-size: 2vw;
     margin: 5vw 5vw 0 0;
 }
-@media screen and (max-width:959px){
-
+.chat-items{
+    text-align: center;
+    margin-top: 10vh;
+    transition: .8s;
 }
-@media screen and (min-width:480px){
+#intro-question{
+    font-size: 3.5vw;
+}
+#introduce{
+    font-size:2vw;
+}
+.chat-items p{
+    transition-delay: .8s;
+}
+/*@media screen and (max-width:950px) and (min-width:481px){
+    #title{
+        font-size: 10vw;
+        margin-top: 30vw;
+    }
+    #phrase{
+        font-size: 3vw;
+    }
+    #LinkChat{
+        font-size: 5vw;
 
+    }
+}
+*/
+@media screen and (max-width:950px){
+    .f-items{
+        display: block;
+        text-align: center;
+    }
+    #title{
+        font-size: 15vw;
+        margin-top: 30vh;
+        margin-right: 0;
+    }
+    #phrase{
+        font-size: 5vw;
+        margin:10vh 0 15vh 0;
+    }
+    #LinkChat{
+        display: block;
+        text-align: center;
+        font-size: 10vw;
+        margin: 5vw 15vw 0 15vw;
+    }
+    #explain{
+        text-align: center;
+        font-size: 5vw;
+    margin: 20vh 0 0 0;
+    }
 }

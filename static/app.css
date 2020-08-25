@@ -9,33 +9,6 @@
 
 
 
-.chat-footer2{
-    grid-row: 1;
-    grid-column: 1;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 10%;
-}
-.group-name{
-    grid-row: 1;
-    grid-column: 2;
-}
-
-.chat-messages{
-    grid-row: 2;
-    grid-column: 1;
-}
-
-.inputMessage{
-    grid-row: 2;
-    grid-column: 1;
-}
-
-.inputButton{
-    grid-row: 3/4;
-    grid-column: 3/4;
-}
-
   .chat-header, .chat-sidebar, .chat-footer {
     padding: 15px;
   }
@@ -45,6 +18,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Kosugi Maru';
 }
 
 :root {
@@ -59,11 +33,13 @@ html, body {
 input[type='text'] {
   outline: 0;
   display: block;
-  width: 100%;
+  width: 90%;
   padding: 6px 10px;
   border: 2px solid rgb(209, 209, 209);
   transition: all 0.3s;
   border-radius: 30px;
+  height: 8vh;
+  font-size: 1.5em;
 }
 
 input[type='text']:focus {
@@ -83,14 +59,13 @@ button{
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 15px 0 15px 20px;
+    border-width:4vh 0 4vh 6vh;
     border-color: transparent transparent transparent #FFEB27;
 }
 
 /* Chat page */
 .chat-container {
   display: flex;
-  flex-wrap: wrap;
   height: 100%;
   color: #FFF;
   background-color: var(--main-color);
@@ -99,14 +74,21 @@ button{
 
 
 .chat-header {
+  flex:1;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   width: 95%;
   height: 60px;
   align-self: center;
 }
 
 .chat-header .group-name {
+  flex-grow: 8;
+  align-self: center;
+  font-size: 1.3em;
+}
+
+.chat-footer{
   flex: 1;
 }
 
@@ -124,7 +106,7 @@ button{
 
 
 .chat-messages {
-  flex: 1;
+  flex: 10;
   background-color: #FFF;
   color: var(--main-color-dark);
   padding: 15px;
@@ -140,7 +122,7 @@ button{
   border-radius: 8px;
   align-self: flex-start;
   padding: 6px 10px;
-  background-color: #dedede;
+  background-color: #E8382F;
   margin-bottom: 10px;
 }
 
@@ -163,7 +145,7 @@ button{
 .leaveButton {
     display       : inline-block;
     border-radius : 5%;          /* 角丸       */
-    font-size     : 10pt;        /* 文字サイズ */
+    /* font-size     : 10pt;        文字サイズ */
     text-align    : center;      /* 文字位置   */
     cursor        : pointer;     /* カーソル   */
     padding       : 9px 11px;   /* 余白       */
@@ -173,7 +155,8 @@ button{
     transition    : .3s;         /* なめらか変化 */
     box-shadow    : 6px 6px 3px #666666;  /* 影の設定 */
     border        : 2px solid #ffeb27;    /* 枠の指定 */
-    text-decoration: none
+    text-decoration: none;
+    
   }
   .leaveButton:hover {
     box-shadow    : none;        /* カーソル時の影消去 */

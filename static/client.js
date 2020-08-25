@@ -35,7 +35,7 @@ leaveGroupBtn.onclick = () => {
 // 接続したとき
 function onConnectionOpen() {
   console.log(`接続しました`);
-  isRedirect();
+  urlRedirect();
   const queryParams = getQueryParams();
 
   if (!queryParams.name || !queryParams.group) {
@@ -124,15 +124,15 @@ function redirect() {
 }
 
 //リダイレクトするかしないか
-function isRedirect() {
+function urlRedirect() {
   //現在のURLを取得
   const protocol = window.location.protocol;
   const host = window.location.host;
   //前のページであるはずのパス(今はindex.htmlから来るのを想定)
   const pathname = "/index.html";
-  const previousPath = protocol + "//" + host + pathname;
+  const previousPath1 = protocol + "//" + host + pathname;
   //index.html以外から来たらリダイレクト
-  if(document.referrer !== previousPath) {
+  if(document.referrer !== previousPath1) {
     redirect();
   }
 }

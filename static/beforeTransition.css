@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+html, body{
+    height: 100%;
+    background-color: #13AE67;
+}
+
+.mainContainer{
+    display: flex;
+    height: 100%;
+    width: 90%;
+    margin: auto;
+
+}
+
+.subContainer{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    background-color: white;
+    border-radius: 20px;
+    align-self: center;
+}
+
+.messages{
+    flex:1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-self: center;
+    font-size: 1.7em;
+    justify-content: center;
+}
+
+.roomName{
+    flex: 1;
+    align-self: center;
+    font-size: 3.0em;
+}

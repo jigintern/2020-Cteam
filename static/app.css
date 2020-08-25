@@ -4,31 +4,10 @@
 
 }
 
-.chat-main{
-    /*display: grid;
-    height: 100%;
-    grid-template-rows: 10% 80% 10%;
-    grid-template-columns: 1fr;*/
-}
 
-/* .chat-footer{
-    position: absolute;
-    bottom: 1%;
-} */
 
-/*.chat-header{
-    grid-row: 1;
-    grid-column: 1;
-    display: grid;
-    grid-template-columns: 10% 1fr;
-    grid-template-rows: 1fr;
-}*/
 
-.chat-footer{
-    /*display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 1fr;*/
-}
+
 
 .chat-footer2{
     grid-row: 1;
@@ -107,19 +86,6 @@ button{
     border-width: 15px 0 15px 20px;
     border-color: transparent transparent transparent #FFEB27;
 }
-
-/* button {
-  outline: 0;
-  padding: 6px 10px;
-  border: 1px solid var(--main-color);
-  background-color: #FFF;
-}
-
-button:active {
-  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.3);
-  position: relative;
-  top: 1px;
-} */
 
 /* Chat page */
 .chat-container {

@@ -12,6 +12,7 @@ const groupsMap = new Map();
 //userId,name,messageをもつMap
 const messagesMap = new Map();
 
+//リダイレクトされたかのフラグ
 let redirectFrag = false;
 
 // 接続時に呼ばれる
@@ -193,7 +194,7 @@ function leaveGroup(userId) {
     //退出ユーザー表示
     emitLogoutMsssage(userId);
   }
-  redirectFrag = false;
+  redirectFrag = false;  //リダイレクトフラグを下ろす
 
   groupsMap.set(userObj.groupName, users);
 

@@ -8,6 +8,7 @@ $(function () {
     str += ans;
     if (str.length === cnt) {
       sessionStorage.setItem("roomId", str);
+      window.location.href = "./beforeTransition.html";
       window.open("./beforeTransition.html");
     }
     console.log(str);

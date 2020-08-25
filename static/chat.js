@@ -12,6 +12,8 @@ const groupsMap = new Map();
 //userId,name,messageをもつMap
 const messagesMap = new Map();
 
+let redirectFrag = false;
+
 // 接続時に呼ばれる
 export default async function chat(ws) {
   const userId = v4.generate();
@@ -46,11 +48,12 @@ export default async function chat(ws) {
         //人数制限(とりあえず今は2人)
         const roomUserMax = 2;
         if(users.length >= roomUserMax) {
-          const tmp_event = {
+          redirectFrag = true;  //リダイレクトされたフラグを立てる
+          const redirect_event = {
             event: "roomFull",
             data: getDisplayUsers(event.groupName)
           };
-          userObj.ws.send(JSON.stringify(tmp_event));
+          userObj.ws.send(JSON.stringify(redirect_event));
         }
         else {
           users.push(userObj);
@@ -60,9 +63,8 @@ export default async function chat(ws) {
 
           emitPreviousMessages(event.groupName, ws);
 
-          //入室メッセージを表示したい----
+          //入室メッセージを表示
           emitLoginMessage(userId);
-          //-----------------------------
         }
 
         break;
@@ -99,7 +101,32 @@ function emitLoginMessage(userId) {
   emitMessage(userObj.groupName, message, "System");
 }
 
+//退室メッセージの表示
 function emitLogoutMsssage(userId) {
+  const userObj = usersMap.get(userId);
+  const message = {
+    userId: "System",
+    name: "System",
+    message: `${userObj.name} logout this room`
+  };
+  const messages = messagesMap.get(userObj.groupName) || [];
+  messages.push(message);
+  messagesMap.set(messages);
+
+  //退室者以外にメッセージを送信
+  let users = groupsMap.get(userObj.groupName) || [];
+  users = users.filter((u) => u.userId !== userId);
+  for (const user of users) {
+    const tmpMessage = {
+      ...message,
+      sender: "System"
+    };
+    const event = {
+      event: "message",
+      data: tmpMessage,
+    };
+    user.ws.send(JSON.stringify(event));
+  }
 }
 
 // グループ全員に名前を表示する関数
@@ -161,9 +188,12 @@ function leaveGroup(userId) {
 
   users = users.filter((u) => u.userId !== userId);
 
-  //退出ユーザー表示-----
-  emitLogoutMsssage(userId);
-  //-------------------
+  //リダイレクトじゃなかったら
+  if(!redirectFrag) {
+    //退出ユーザー表示
+    emitLogoutMsssage(userId);
+  }
+  redirectFrag = false;
 
   groupsMap.set(userObj.groupName, users);
 

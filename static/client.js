@@ -118,21 +118,22 @@ function getQueryParams() {
   return params;
 }
 
+//リダイレクト
 function redirect() {
   window.location.href = "./index.html";
   return;
 }
 
-//リダイレクトするかしないか
+//URLによるリダイレクト
 function urlRedirect() {
   //現在のURLを取得
   const protocol = window.location.protocol;
   const host = window.location.host;
   //前のページであるはずのパス(今はindex.htmlから来るのを想定)
-  const pathname = "/index.html";
-  const previousPath1 = protocol + "//" + host + pathname;
+  const pathname = "index.html";
+  const previousPath = protocol + "//" + host + "/" + pathname;
   //index.html以外から来たらリダイレクト
-  if(document.referrer !== previousPath1) {
+  if(document.referrer !== previousPath) {
     redirect();
   }
 }

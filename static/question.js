@@ -8,7 +8,6 @@ $(function () {
     str += ans;
     if (str.length === cnt) {
       sessionStorage.setItem("roomId", str);
-      window.location.href = "./beforeTransition.html"; // 通常の遷移
       window.open("./beforeTransition.html");
     }
     console.log(str);

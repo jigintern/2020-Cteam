@@ -10,7 +10,12 @@ let leaveGroupBtn = document.querySelector("#leaveGroupBtn");
 let groupName = document.querySelector("#groupName");
 
 window.addEventListener("DOMContentLoaded", () => {
-  ws = new WebSocket(`ws://localhost:3000/ws`);
+  if(window.location.host === "localhost:8884") {
+    ws = new WebSocket(`ws://localhost:8883/ws`);
+  }
+  else if(window.location.host === "t3.intern.jigd.info") {
+    ws = new WebSocket(`wss://t3.intern.jigd.info/ws`);
+  }
   ws.addEventListener("open", onConnectionOpen);
   ws.addEventListener("message", onMessageReceived);
 });
@@ -28,9 +33,9 @@ sendMessageForm.onsubmit = (ev) => {
   messageInput.value = "";
 };
 
-leaveGroupBtn.onclick = () => {
+/*leaveGroupBtn.onclick = () => {
   window.location.href = "index.html";
-};
+};*/
 
 // 接続したとき
 function onConnectionOpen() {
@@ -88,19 +93,20 @@ function onMessageReceived(event) {
 //メッセージの埋め込み
 function appendMessage(message) {
   const messageEl = document.createElement("div");
-  if(message.sender === "me") {
+  if (message.sender === "me") {
     messageEl.className = "message message-to";
-    messageEl.innerHTML = `<p class="message-text">${message.message}</p>`
-  }
-  else if(message.sender === "System" || (message.sender === undefined && message.name === "System")) {
+    messageEl.innerHTML = `<p class="message-text">${message.message}</p>`;
+  } else if (
+    message.sender === "System" ||
+    (message.sender === undefined && message.name === "System")
+  ) {
     messageEl.className = "message message-System";
-    messageEl.innerHTML = `<p class="message-system">${message.message}</p>`
-  }
-  else {
+    messageEl.innerHTML = `<p class="message-system">${message.message}</p>`;
+  } else {
     messageEl.className = "message message-from";
     messageEl.innerHTML = `
       <h4>${message.name}</h4>
-      <p class="message-text">${message.message}</p> `
+      <p class="message-text">${message.message}</p> `;
   }
   chatMessagesCtr.appendChild(messageEl);
 }
@@ -130,10 +136,10 @@ function urlRedirect() {
   const protocol = window.location.protocol;
   const host = window.location.host;
   //前のページであるはずのパス(今はindex.htmlから来るのを想定)
-  const pathname = "index.html";
+  const pathname = "beforeTransition.html";
   const previousPath = protocol + "//" + host + "/" + pathname;
   //index.html以外から来たらリダイレクト
-  if(document.referrer !== previousPath) {
+  if (document.referrer !== previousPath) {
     redirect();
   }
 }

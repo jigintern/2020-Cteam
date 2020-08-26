@@ -1,9 +1,9 @@
 import { listenAndServe } from "https://deno.land/std/http/server.ts";
 import { acceptWebSocket, acceptable } from "https://deno.land/std/ws/mod.ts";
 import { Server } from "https://code4sabae.github.io/js/Server.js";
-import chat from "./static/chat.js";
+import chat from "./chat.js";
 
-listenAndServe({ port: 3000 }, async (req) => {
+listenAndServe({ port: 8883 }, async (req) => {
   if (req.method === "GET" && req.url === "/ws") {
     if (acceptable(req)) {
       acceptWebSocket({
@@ -16,5 +16,5 @@ listenAndServe({ port: 3000 }, async (req) => {
   }
 });
 
-new Server(3001);
+new Server(8884);
 console.log("↑ここにGo!");

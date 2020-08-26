@@ -136,7 +136,9 @@ function emitLogoutMsssage(userId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
-      console.log("退室メッセージのエラー");
+      console.log(user.name + "に退室メッセージが送れませんでした");
+      console.log(user);
+      deleteUser(user.userId);
       console.log(e);
     }
   }
@@ -158,7 +160,7 @@ function emitUserList(groupName) {
     catch(e) {
       console.log("emitUserList時のエラー");
       console.log(user);
-      leaveGroup(user.userId, user.groupName);
+      deleteUser(user.userId);
       console.log(e);
     }
   }
@@ -190,7 +192,7 @@ function emitMessage(groupName, message, senderId) {
     catch(e) {
       console.log("emitMessage時のエラー");
       console.log(user);
-      leaveGroup(user.userId, user.groupName);
+      deleteUser(user.userId);
       console.log(e);
     }
   }
@@ -240,4 +242,15 @@ function leaveGroup(userId) {
   }
 
   emitUserList(userObj.groupName);
+}
+
+function deleteUser(userId) {
+  const userObj = usersMap.get(userId);
+  if(!userObj) {
+    return;
+  }
+  let users = groupsMap.get(userObj.groupName) || [];
+  users = users.filter((u) => u.userId !== userId);
+  groupsMap.set(userObj.groupName, users);
+  usersMap.delete(userId);
 }

@@ -157,6 +157,7 @@ function emitUserList(groupName) {
     }
     catch(e) {
       console.log("emitUserList時のエラー");
+      console.log(user);
       console.log(e);
     }
   }

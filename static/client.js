@@ -74,6 +74,7 @@ function onMessageReceived(event) {
   event = JSON.parse(event.data);
   switch (event.event) {
     case "users":
+      console.log(event.data);
       chatUsersCount.innerHTML = event.data.length;
       chatUsersCtr.innerHTML = "";
       event.data.forEach((u) => {

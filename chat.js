@@ -137,6 +137,7 @@ function emitLogoutMsssage(userId) {
     }
     catch(e) {
       console.log("退室メッセージのエラー");
+      leaveGroup(user.userId, user.groupName);
       console.log(e);
     }
   }
@@ -158,6 +159,7 @@ function emitUserList(groupName) {
     catch(e) {
       console.log("emitUserList時のエラー");
       console.log(user);
+      leaveGroup(user.userId, user.groupName);
       console.log(e);
     }
   }
@@ -189,6 +191,7 @@ function emitMessage(groupName, message, senderId) {
     catch(e) {
       console.log("emitMessage時のエラー");
       console.log(user);
+      leaveGroup(user.userId, user.groupName);
       console.log(e);
     }
   }

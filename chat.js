@@ -137,7 +137,6 @@ function emitLogoutMsssage(userId) {
     }
     catch(e) {
       console.log("退室メッセージのエラー");
-      leaveGroup(user.userId, user.groupName);
       console.log(e);
     }
   }

@@ -17,7 +17,7 @@ h1{
 button{
     background:#E8382F;
     color: white;
-    border-radius: 5%;
+    border-radius: 20px;
     border: 2px solid #E8382F;
     width: 35%;
     height: 20%;
@@ -64,7 +64,7 @@ button{
     background-color: white;
     width: 95%;
     align-self: center;
-    border-radius: 5%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     

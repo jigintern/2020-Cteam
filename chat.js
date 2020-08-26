@@ -58,6 +58,7 @@ export default async function chat(ws) {
             userObj.ws.send(JSON.stringify(redirect_event));
           }
           catch(e) {
+            console.log("人数制限時のエラー");
             console.log(e);
           }
         }
@@ -135,6 +136,7 @@ function emitLogoutMsssage(userId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
+      console.log("退室メッセージのエラー");
       console.log(e);
     }
   }
@@ -154,6 +156,7 @@ function emitUserList(groupName) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
+      console.log("emitUserList時のエラー");
       console.log(e);
     }
   }
@@ -183,6 +186,7 @@ function emitMessage(groupName, message, senderId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
+      console.log("emitMessage時のエラー");
       console.log(e);
     }
   }
@@ -200,6 +204,7 @@ function emitPreviousMessages(groupName, ws) {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
+    console.log("emitPreviousMessages時のエラー");
     console.log(e);
   }
 }

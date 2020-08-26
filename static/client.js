@@ -33,6 +33,7 @@ sendMessageForm.onsubmit = (ev) => {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
+    console.log("sendMessageForm.onsubmit時のエラー");
     console.log(e);
   }
   messageInput.value = "";
@@ -62,6 +63,7 @@ function onConnectionOpen() {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
+    console.log("onConnectionOpen時のエラー");
     console.log(e);
   }
 }

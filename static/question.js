@@ -7,8 +7,33 @@ $(function () {
     $(id).show("slow");
     str += ans;
     if (str.length === cnt) {
-      sessionStorage.setItem("roomId", str);
-      window.location.href = "./beforeTransition.html";
+      const ch = new Array(
+        "111",
+        "112",
+        "121",
+        "122",
+        "211",
+        "212",
+        "221",
+        "222",
+      );
+      const roomId = new Array(
+        "一緒に出かけたい芸能人",
+        "行ってよかった場所",
+        "スポーツ",
+        "行ってみたい場所",
+        "スマホゲー",
+        "Youtube",
+        "映画",
+        "音楽",
+      );
+
+      for (let i = 0; i < 8; ++i) {
+        if (ch[i] === str) {
+          sessionStorage.setItem("roomId", roomId[i]);
+          window.location.href = "./beforeTransition.html";
+        }
+      }
     }
     console.log(str);
   }

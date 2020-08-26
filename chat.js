@@ -46,8 +46,8 @@ export default async function chat(ws) {
 
         const users = groupsMap.get(event.groupName) || [];
 
-        //人数制限(とりあえず今は2人)
-        const roomUserMax = 2;
+        //人数制限(とりあえず今は10人)
+        const roomUserMax = 10;
         if(users.length >= roomUserMax) {
           redirectFrag = true;  //リダイレクトされたフラグを立てる
           const redirect_event = {

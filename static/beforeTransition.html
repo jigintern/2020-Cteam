@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>まもなくチャットルームに移動します</title>
-        <link rel="stylesheet" href="./beforeTransition.css">
-    </head>
-    <body>
-        <div class=mainContainer>
-            <div class="subContainer">
-                <div class="messages">
-                    まもなく以下のチャットルームに移動します。<br>
-                    チャットで使用する名前を入力してください
-                </div>
-                <div class="roomName">
-                    room1
-                </div>
-                <div class="enterTheName">
-                    <input type="text" placeholder="名前を入力してください">
-                    <button class="submitButton">決定！</button>
-                </div>
+
+<head>
+    <meta charset="UTF-8">
+    <title>まもなくチャットルームに移動します</title>
+    <link rel="stylesheet" href="./beforeTransition.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="beforeTransition.js"></script>
+</head>
+
+<body>
+    <div class=mainContainer>
+        <div class="subContainer">
+            <div class="messages">
+                まもなく以下のチャットルームに移動します。<br>
+                チャットで使用する名前を入力してください
+            </div>
+            <div class="roomName">
+                room1
+            </div>
+            <div class="enterTheName">
+                <input type="text" class="name" placeholder="名前を入力してください">
+                <button class="submitButton">決定！</button>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

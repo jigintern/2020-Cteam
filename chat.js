@@ -188,6 +188,7 @@ function emitMessage(groupName, message, senderId) {
     }
     catch(e) {
       console.log("emitMessage時のエラー");
+      console.log(user);
       console.log(e);
     }
   }

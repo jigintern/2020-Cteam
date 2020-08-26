@@ -65,8 +65,13 @@ h1,h2{
     margin-top: 10vh;
     transition: .8s;
 }
-#intro-question{
+h3{
     font-size: 3.5vw;
+    opacity: 0;
+    transition: opacity 0s ease .8s;
+}
+h4:hover{
+    opacity: 1;
 }
 #introduce{
     font-size:2vw;

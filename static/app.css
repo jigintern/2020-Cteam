@@ -83,7 +83,8 @@ button{
 }
 
 .chat-header .group-name {
-  flex-grow: 8;
+  flex: 2;
+  /* flex-grow: 8; */
   align-self: center;
   font-size: 1.3em;
 }
@@ -141,6 +142,12 @@ button{
 }
 
 
+.leaveButtonPlace{
+  flex:1;
+  text-align: center;
+  align-self: center;
+}
+
 
 .leaveButton {
     display       : inline-block;
@@ -156,7 +163,7 @@ button{
     box-shadow    : 6px 6px 3px #666666;  /* 影の設定 */
     border        : 2px solid #ffeb27;    /* 枠の指定 */
     text-decoration: none;
-    
+    font-size: 3vh;
   }
   .leaveButton:hover {
     box-shadow    : none;        /* カーソル時の影消去 */

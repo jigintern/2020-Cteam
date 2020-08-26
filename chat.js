@@ -54,7 +54,12 @@ export default async function chat(ws) {
             event: "roomFull",
             data: getDisplayUsers(event.groupName)
           };
-          userObj.ws.send(JSON.stringify(redirect_event));
+          try {
+            userObj.ws.send(JSON.stringify(redirect_event));
+          }
+          catch(e) {
+            console.log(e);
+          }
         }
         else {
           users.push(userObj);
@@ -126,7 +131,12 @@ function emitLogoutMsssage(userId) {
       event: "message",
       data: tmpMessage,
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 }
 
@@ -140,7 +150,12 @@ function emitUserList(groupName) {
       event: "users",
       data: getDisplayUsers(groupName),
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 }
 
@@ -164,7 +179,12 @@ function emitMessage(groupName, message, senderId) {
       event: "message",
       data: tmpMessage,
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 }
 
@@ -176,7 +196,12 @@ function emitPreviousMessages(groupName, ws) {
     event: "previousMessages",
     data: messages,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log(e);
+  }
 }
 
 // グループ退出

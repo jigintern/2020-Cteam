@@ -29,7 +29,12 @@ sendMessageForm.onsubmit = (ev) => {
     event: "message",
     data: messageInput.value,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log(e);
+  }
   messageInput.value = "";
 };
 
@@ -53,7 +58,12 @@ function onConnectionOpen() {
     groupName: queryParams.group,
     name: queryParams.name,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log(e);
+  }
 }
 
 //メッセージを受け取ったとき

@@ -4,3 +4,5 @@ $(document).on("click", ".submitButton", function () {
   let url = `./chat.html?name=${name}&group=${roomId}`;
   window.location.href = url;
 });
+
+$(() => $(".roomName").text("Room" + sessionStorage.getItem("roomId")));

@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./stylesheet/Rooms.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
-  <title>いい感じの名前</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./stylesheet/top.css">
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+       $(function(){
+        /*chat-itemsの表示を消す*/
+         $('.chat-items').css("opacity","0");
+         $(window).scroll(function (){
+           $(".chat-items").each(function(){
+                var imgPos = $(this).offset().top;    
+                var scroll = $(window).scrollTop();
+                var windowHeight = $(window).height();
+            if (scroll > imgPos - windowHeight + windowHeight/15){
+                $("p, div",this).css("opacity","1" );
+                $("p",this).css({ 
+                    "font-size": "100px",
+                    "padding": "0 20px 40px"
+                });
+            } else {
+                $("p, div",this).css("opacity","0" );
+                $("p",this).css({ 
+                      "font-size": "20px",
+                      "padding": "20px"
+                    });
+                  }
+             });
+          });
+        });
+    </script>
+    <title>いい感じのタイトル</title>
 </head>
 
 <body class="page-login">

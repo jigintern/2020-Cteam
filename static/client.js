@@ -28,9 +28,9 @@ sendMessageForm.onsubmit = (ev) => {
   messageInput.value = "";
 };
 
-leaveGroupBtn.onclick = () => {
+/*leaveGroupBtn.onclick = () => {
   window.location.href = "index.html";
-};
+};*/
 
 // 接続したとき
 function onConnectionOpen() {

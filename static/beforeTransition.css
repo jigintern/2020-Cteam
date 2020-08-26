@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Kosugi Maru';
   }
 
 html, body{
@@ -30,10 +31,11 @@ html, body{
 .messages{
     flex:1;
     display: flex;
+    width: 90%;
     align-items: center;
     flex-direction: column;
     align-self: center;
-    font-size: 1.7em;
+    /* font-size: 1.7em; */
     justify-content: center;
 }
 
@@ -46,7 +48,7 @@ html, body{
 
 input[type='text'] {
     outline: 0;
-    width: 75%;
+    width: 65%;
     height: 20%;
     padding: 6px 10px;
     border: 2px solid rgb(209, 209, 209);
@@ -60,6 +62,8 @@ input[type='text']:focus {
 
 .enterTheName{
     flex: 1;
+    width: 90%;
+    align-self: center;
 }
 
 .submitButton {

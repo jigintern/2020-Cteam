@@ -255,5 +255,6 @@ function deleteUser(userId) {
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
+  groupsMap.delete(userId);
   emitUserList(userObj.groupName);
 }

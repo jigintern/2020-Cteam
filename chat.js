@@ -21,14 +21,10 @@ export default async function chat(ws) {
 
   for await (let data of ws) {
     const event = typeof data === "string" ? JSON.parse(data) : data;
-
     let userObj;
-
     //退出
     if (isWebSocketCloseEvent(data)) {
-
       leaveGroup(userId, event.groupName);
-
       break;
     }
 
@@ -41,9 +37,7 @@ export default async function chat(ws) {
           groupName: event.groupName,
           ws,
         };
-
         usersMap.set(userId, userObj);
-
         const users = groupsMap.get(event.groupName) || [];
 
         //人数制限(とりあえず今は10人)
@@ -59,25 +53,18 @@ export default async function chat(ws) {
           }
           catch(e) {
             console.log("人数制限時のエラー");
-            console.log(e);
           }
         }
         else {
           users.push(userObj);
           groupsMap.set(event.groupName, users);
-
           emitUserList(event.groupName);
-
           emitPreviousMessages(event.groupName, ws);
-
-          //入室メッセージを表示
           emitLoginMessage(userId);
         }
-
         break;
 
       // メッセージを受け取ったとき
-
       case "message":
         userObj = usersMap.get(userId);
         const message = {
@@ -136,10 +123,9 @@ function emitLogoutMsssage(userId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
+      console.log("emitLogoutMessage時のエラー");
       console.log(user.name + "に退室メッセージが送れませんでした");
-      console.log(user);
       deleteUser(user.userId);
-      console.log(e);
     }
   }
 }
@@ -159,9 +145,8 @@ function emitUserList(groupName) {
     }
     catch(e) {
       console.log("emitUserList時のエラー");
-      console.log(user);
+      console.log(user.name + "にメッセージを送れませんでした");
       deleteUser(user.userId);
-      console.log(e);
     }
   }
 }
@@ -191,9 +176,8 @@ function emitMessage(groupName, message, senderId) {
     }
     catch(e) {
       console.log("emitMessage時のエラー");
-      console.log(user);
+      console.log(user.name + "にメッセージを送れませんでした");
       deleteUser(user.userId);
-      console.log(e);
     }
   }
 }
@@ -211,7 +195,6 @@ function emitPreviousMessages(groupName, ws) {
   }
   catch(e) {
     console.log("emitPreviousMessages時のエラー");
-    console.log(e);
   }
 }
 
@@ -222,35 +205,33 @@ function leaveGroup(userId) {
     return;
   }
   let users = groupsMap.get(userObj.groupName) || [];
-
   users = users.filter((u) => u.userId !== userId);
-
   //リダイレクトじゃなかったら
   if(!redirectFrag) {
     //退出ユーザー表示
     emitLogoutMsssage(userId);
   }
   redirectFrag = false;  //リダイレクトフラグを下ろす
-
   groupsMap.set(userObj.groupName, users);
-
   usersMap.delete(userId);
-
   //誰もいなければメッセージ削除
   if(usersMap.size === 0) {
     messagesMap.set(userObj.groupName, []);
   }
-
   emitUserList(userObj.groupName);
 }
 
+//ユーザーリストからの削除
 function deleteUser(userId) {
   const userObj = usersMap.get(userId);
+  console.log(userObj.name + "の削除");
   if(!userObj) {
     return;
   }
   let users = groupsMap.get(userObj.groupName) || [];
+  console.log(users);
   users = users.filter((u) => u.userId !== userId);
+  console.log(users);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
   groupsMap.delete(userId);

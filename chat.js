@@ -133,7 +133,7 @@ function emitLogoutMsssage(userId) {
 // グループ全員に名前を表示する関数
 function emitUserList(groupName) {
   // ユーザー取得
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
   //websocketが切断されているユーザーがいないかの確認
   for(const user of users) {
     console.log(user.name, user.ws._isClosed);

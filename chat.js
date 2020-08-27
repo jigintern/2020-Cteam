@@ -224,15 +224,15 @@ function leaveGroup(userId) {
 //ユーザーリストからの削除
 function deleteUser(userId) {
   const userObj = usersMap.get(userId);
-  console.log(userObj);
   if(!userObj) {
     return;
   }
   let users = groupsMap.get(userObj.groupName) || [];
-  console.log(users);
   users = users.filter((u) => u.userId !== userId);
-  console.log(users);
   groupsMap.set(userObj.groupName, users);
+
+  console.log(usersMap);
+
   usersMap.delete(userId);
   groupsMap.delete(userId);
 }

@@ -161,7 +161,7 @@ function emitUserList(groupName) {
     }
     catch(e) {
       console.log("emitUserList時のエラー");
-      console.log(user.name + "にメッセージを送れませんでした");
+      console.log(user.name + "ユーザーリストを送れませんでした");
     }
   }
 }

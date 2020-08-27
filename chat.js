@@ -39,7 +39,7 @@ export default async function chat(ws) {
         };
         usersMap.set(userId, userObj);
         const users = groupsMap.get(event.groupName) || [];
-
+        console.log(users.length);
         //人数制限(とりあえず今は10人)
         const roomUserMax = 10;
         if(users.length >= roomUserMax) {

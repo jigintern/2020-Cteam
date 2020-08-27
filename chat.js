@@ -145,8 +145,10 @@ function emitUserList(groupName) {
   for(const user of users) {
     //いたら削除
     if(user.ws._isClosed === true) {
+      console.log(usersMap);
       console.log("emitUserList : " + user.name);
       deleteUser(user.userId);
+      console.log(usersMap);
     }
   }
   users = groupsMap.get(groupName) || [];

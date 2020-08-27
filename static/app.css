@@ -55,6 +55,10 @@ button{
     appearance: none;
 }
 
+p{
+    word-break: break-word;
+}
+
 .inputButton{
     width: 0;
     height: 0;

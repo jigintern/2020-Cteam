@@ -102,6 +102,7 @@ function onMessageReceived(event) {
 //メッセージの埋め込み
 function appendMessage(message) {
   message.message = escapeHtml(message.message);
+  message.name = escapeHtml(message.name);
   const messageEl = document.createElement("div");
   if (message.sender === "me") {
     messageEl.className = "message message-to";

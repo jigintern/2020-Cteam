@@ -169,12 +169,6 @@ function emitUserList(groupName) {
 // ユーザー表示
 function getDisplayUsers(groupName) {
   let users = groupsMap.get(groupName) || [];
-  for(const user of users) {
-    if(user.ws._isClosed === true) {
-      deleteUser(user.userId);
-    }
-  }
-  users = groupsMap.get(groupName) || [];
   return users.map((u) => {
     return { userId: u.userId, name: u.name };
   });

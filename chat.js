@@ -249,11 +249,21 @@ function deleteUser(userId) {
   if(!userObj) {
     return;
   }
+
+  console.log("削除前のgroupsMap↓");
   console.log(groupsMap);
+  console.log("削除前のusersMap↓");
+  console.log(usersMap);
+
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
+
+  console.log("削除後のgroupsMap↓");
   console.log(groupsMap);
+  console.log("削除後のusersMap↓");
+  console.log(usersMap);
+
   emitUserList(userObj.groupName);
 }

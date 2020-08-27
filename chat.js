@@ -168,7 +168,13 @@ function emitUserList(groupName) {
 
 // ユーザー表示
 function getDisplayUsers(groupName) {
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
+  for(const user of users) {
+    if(user.ws._isClosed === true) {
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(groupName) || [];
   return users.map((u) => {
     return { userId: u.userId, name: u.name };
   });
@@ -176,7 +182,14 @@ function getDisplayUsers(groupName) {
 
 // メッセージ送信
 function emitMessage(groupName, message, senderId) {
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
+  for(const user of users) {
+    if(user.ws._isClosed === true) {
+      console.log("emitMessage : " + user.name);
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(groupName) || [];
   for (const user of users) {
     const tmpMessage = {
       ...message,

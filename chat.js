@@ -134,6 +134,11 @@ function emitLogoutMsssage(userId) {
 function emitUserList(groupName) {
   // ユーザー取得
   const users = groupsMap.get(groupName) || [];
+  for(const user of users) {
+    if(user.ws._isClosed) {
+      deleteUser(user.userId);
+    }
+  }
   // グループユーザーリスト送信
   for (const user of users) {
     const event = {
@@ -146,7 +151,6 @@ function emitUserList(groupName) {
     catch(e) {
       console.log("emitUserList時のエラー");
       console.log(user.name + "にメッセージを送れませんでした");
-      deleteUser(user.userId);
     }
   }
 }
@@ -231,5 +235,4 @@ function deleteUser(userId) {
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
-  emitUserList(userObj.groupName);
 }

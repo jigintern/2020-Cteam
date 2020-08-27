@@ -110,7 +110,7 @@ function emitLogoutMsssage(userId) {
   //退室者以外にメッセージを送信
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
-  for(user of users) {
+  for(const user of users) {
     //いたら削除
     if(user.ws._isClosed === true) {
       console.log("emitLogoutMessage : " + user.name);

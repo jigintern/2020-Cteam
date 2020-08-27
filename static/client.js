@@ -29,7 +29,12 @@ sendMessageForm.onsubmit = (ev) => {
     event: "message",
     data: messageInput.value,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log("メッセージ送信時のエラー");
+  }
   messageInput.value = "";
 };
 
@@ -53,12 +58,16 @@ function onConnectionOpen() {
     groupName: queryParams.group,
     name: queryParams.name,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log("接続時のエラー");
+  }
 }
 
 //メッセージを受け取ったとき
 function onMessageReceived(event) {
-  //console.log("メッセージデータ：");
   event = JSON.parse(event.data);
   switch (event.event) {
     case "users":

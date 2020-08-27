@@ -21,14 +21,10 @@ export default async function chat(ws) {
 
   for await (let data of ws) {
     const event = typeof data === "string" ? JSON.parse(data) : data;
-
     let userObj;
-
     //退出
     if (isWebSocketCloseEvent(data)) {
-
       leaveGroup(userId, event.groupName);
-
       break;
     }
 
@@ -41,37 +37,33 @@ export default async function chat(ws) {
           groupName: event.groupName,
           ws,
         };
-
         usersMap.set(userId, userObj);
-
         const users = groupsMap.get(event.groupName) || [];
-
-        //人数制限(とりあえず今は2人)
-        const roomUserMax = 2;
+        //人数制限(とりあえず今は10人)
+        const roomUserMax = 10;
         if(users.length >= roomUserMax) {
           redirectFrag = true;  //リダイレクトされたフラグを立てる
           const redirect_event = {
             event: "roomFull",
             data: getDisplayUsers(event.groupName)
           };
-          userObj.ws.send(JSON.stringify(redirect_event));
+          try {
+            userObj.ws.send(JSON.stringify(redirect_event));
+          }
+          catch(e) {
+            console.log("人数制限時のエラー");
+          }
         }
         else {
           users.push(userObj);
           groupsMap.set(event.groupName, users);
-
           emitUserList(event.groupName);
-
           emitPreviousMessages(event.groupName, ws);
-
-          //入室メッセージを表示
           emitLoginMessage(userId);
         }
-
         break;
 
       // メッセージを受け取ったとき
-
       case "message":
         userObj = usersMap.get(userId);
         const message = {
@@ -117,6 +109,13 @@ function emitLogoutMsssage(userId) {
   //退室者以外にメッセージを送信
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
+  for(const user of users) {
+    //いたら削除
+    if(user.ws._isClosed === true) {
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(userObj.groupName) || [];
   for (const user of users) {
     const tmpMessage = {
       ...message,
@@ -126,27 +125,45 @@ function emitLogoutMsssage(userId) {
       event: "message",
       data: tmpMessage,
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(user.name + "には退室メッセージが送れませんでした");
+    }
   }
 }
 
 // グループ全員に名前を表示する関数
 function emitUserList(groupName) {
   // ユーザー取得
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
+  //websocketが切断されているユーザーがいないかの確認
+  for(const user of users) {
+    //いたら削除
+    if(user.ws._isClosed === true) {
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(groupName) || [];
   // グループユーザーリスト送信
   for (const user of users) {
     const event = {
       event: "users",
       data: getDisplayUsers(groupName),
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(user.name + "にはユーザーリストを送れませんでした");
+    }
   }
 }
 
 // ユーザー表示
 function getDisplayUsers(groupName) {
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
   return users.map((u) => {
     return { userId: u.userId, name: u.name };
   });
@@ -154,7 +171,13 @@ function getDisplayUsers(groupName) {
 
 // メッセージ送信
 function emitMessage(groupName, message, senderId) {
-  const users = groupsMap.get(groupName) || [];
+  let users = groupsMap.get(groupName) || [];
+  for(const user of users) {
+    if(user.ws._isClosed === true) {
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(groupName) || [];
   for (const user of users) {
     const tmpMessage = {
       ...message,
@@ -164,19 +187,29 @@ function emitMessage(groupName, message, senderId) {
       event: "message",
       data: tmpMessage,
     };
-    user.ws.send(JSON.stringify(event));
+    try {
+      user.ws.send(JSON.stringify(event));
+    }
+    catch(e) {
+      console.log(user.name + "にはメッセージを送れませんでした");
+      deleteUser(user.userId);
+    }
   }
 }
 
 // 過去メッセージ取得
 function emitPreviousMessages(groupName, ws) {
   const messages = messagesMap.get(groupName) || [];
-
   const event = {
     event: "previousMessages",
     data: messages,
   };
-  ws.send(JSON.stringify(event));
+  try {
+    ws.send(JSON.stringify(event));
+  }
+  catch(e) {
+    console.log("過去のメッセージを取得出来ませんでした");
+  }
 }
 
 // グループ退出
@@ -186,24 +219,33 @@ function leaveGroup(userId) {
     return;
   }
   let users = groupsMap.get(userObj.groupName) || [];
-
   users = users.filter((u) => u.userId !== userId);
-
   //リダイレクトじゃなかったら
   if(!redirectFrag) {
     //退出ユーザー表示
     emitLogoutMsssage(userId);
   }
   redirectFrag = false;  //リダイレクトフラグを下ろす
-
   groupsMap.set(userObj.groupName, users);
-
   usersMap.delete(userId);
-
   //誰もいなければメッセージ削除
   if(usersMap.size === 0) {
     messagesMap.set(userObj.groupName, []);
   }
+  emitUserList(userObj.groupName);
+}
+
+//ユーザーリストからの削除
+function deleteUser(userId) {
+  const userObj = usersMap.get(userId);
+  if(!userObj) {
+    return;
+  }
+
+  let users = groupsMap.get(userObj.groupName) || [];
+  users = users.filter((u) => u.userId !== userId);
+  groupsMap.set(userObj.groupName, users);
+  usersMap.delete(userId);
 
   emitUserList(userObj.groupName);
 }

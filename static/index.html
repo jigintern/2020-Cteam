@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>いい感じのタイトル</title>
+    <title>GET</title>
 </head>
 <body>
     <div class="f-box"></div>
@@ -19,10 +19,10 @@
     </div>
     <div class="chat-items">
         <h3 id="intro-question">その暇な時間、誰かと共有しませんか？</h3>
-        <video src="./pic/GET.mp4" muted loop id="video"></video>
+        <video src="./pic/GET.mp4" playsinline muted loop  autoplay id="video"></video>
         <p>※環境によっては動画が再生されない場合があります</p>
     </div>
-            <script type="text/javascript">
+    <!--       <script type="text/javascript">
     //import scroll value
         var Yscroll = window.pageYOffset;
         var VStatus = document.getElementById('video');
@@ -30,8 +30,7 @@
             VStatus.play();
         }else{
             VStatus.pause();
-            setCurrentTime(0);
         }
-    </script>
+    </script>-->
 </body>
 </html>

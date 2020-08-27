@@ -39,7 +39,6 @@ export default async function chat(ws) {
         };
         usersMap.set(userId, userObj);
         const users = groupsMap.get(event.groupName) || [];
-        console.log(users.length);
         //人数制限(とりあえず今は10人)
         const roomUserMax = 10;
         if(users.length >= roomUserMax) {
@@ -113,7 +112,6 @@ function emitLogoutMsssage(userId) {
   for(const user of users) {
     //いたら削除
     if(user.ws._isClosed === true) {
-      console.log("emitLogoutMessage : " + user.name);
       deleteUser(user.userId);
     }
   }
@@ -131,8 +129,7 @@ function emitLogoutMsssage(userId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
-      console.log("emitLogoutMessage時のエラー");
-      console.log(user.name + "に退室メッセージが送れませんでした");
+      console.log(user.name + "には退室メッセージが送れませんでした");
     }
   }
 }
@@ -145,7 +142,6 @@ function emitUserList(groupName) {
   for(const user of users) {
     //いたら削除
     if(user.ws._isClosed === true) {
-      console.log("emitUserList : " + user.name);
       deleteUser(user.userId);
     }
   }
@@ -160,8 +156,7 @@ function emitUserList(groupName) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
-      console.log("emitUserList時のエラー");
-      console.log(user.name + "ユーザーリストを送れませんでした");
+      console.log(user.name + "にはユーザーリストを送れませんでした");
     }
   }
 }
@@ -179,7 +174,6 @@ function emitMessage(groupName, message, senderId) {
   let users = groupsMap.get(groupName) || [];
   for(const user of users) {
     if(user.ws._isClosed === true) {
-      console.log("emitMessage : " + user.name);
       deleteUser(user.userId);
     }
   }
@@ -197,8 +191,7 @@ function emitMessage(groupName, message, senderId) {
       user.ws.send(JSON.stringify(event));
     }
     catch(e) {
-      console.log("emitMessage時のエラー");
-      console.log(user.name + "にメッセージを送れませんでした");
+      console.log(user.name + "にはメッセージを送れませんでした");
       deleteUser(user.userId);
     }
   }
@@ -207,7 +200,6 @@ function emitMessage(groupName, message, senderId) {
 // 過去メッセージ取得
 function emitPreviousMessages(groupName, ws) {
   const messages = messagesMap.get(groupName) || [];
-
   const event = {
     event: "previousMessages",
     data: messages,
@@ -216,7 +208,7 @@ function emitPreviousMessages(groupName, ws) {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
-    console.log("emitPreviousMessages時のエラー");
+    console.log("過去のメッセージを取得出来ませんでした");
   }
 }
 
@@ -250,20 +242,10 @@ function deleteUser(userId) {
     return;
   }
 
-  console.log("削除前のgroupsMap↓");
-  console.log(groupsMap);
-  console.log("削除前のusersMap↓");
-  console.log(usersMap);
-
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
-
-  console.log("削除後のgroupsMap↓");
-  console.log(groupsMap);
-  console.log("削除後のusersMap↓");
-  console.log(usersMap);
 
   emitUserList(userObj.groupName);
 }

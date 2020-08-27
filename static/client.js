@@ -33,8 +33,7 @@ sendMessageForm.onsubmit = (ev) => {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
-    console.log("sendMessageForm.onsubmit時のエラー");
-    console.log(e);
+    console.log("メッセージ送信時のエラー");
   }
   messageInput.value = "";
 };
@@ -63,18 +62,15 @@ function onConnectionOpen() {
     ws.send(JSON.stringify(event));
   }
   catch(e) {
-    console.log("onConnectionOpen時のエラー");
-    console.log(e);
+    console.log("接続時のエラー");
   }
 }
 
 //メッセージを受け取ったとき
 function onMessageReceived(event) {
-  //console.log("メッセージデータ：");
   event = JSON.parse(event.data);
   switch (event.event) {
     case "users":
-      console.log(event.data);
       chatUsersCount.innerHTML = event.data.length;
       chatUsersCtr.innerHTML = "";
       event.data.forEach((u) => {

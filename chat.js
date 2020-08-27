@@ -110,6 +110,14 @@ function emitLogoutMsssage(userId) {
   //退室者以外にメッセージを送信
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
+  for(user of users) {
+    //いたら削除
+    if(user.ws._isClosed === true) {
+      console.log("emitLogoutMessage : " + user.name);
+      deleteUser(user.userId);
+    }
+  }
+  users = groupsMap.get(userObj.groupName) || [];
   for (const user of users) {
     const tmpMessage = {
       ...message,
@@ -125,7 +133,6 @@ function emitLogoutMsssage(userId) {
     catch(e) {
       console.log("emitLogoutMessage時のエラー");
       console.log(user.name + "に退室メッセージが送れませんでした");
-      deleteUser(user.userId);
     }
   }
 }
@@ -136,9 +143,9 @@ function emitUserList(groupName) {
   let users = groupsMap.get(groupName) || [];
   //websocketが切断されているユーザーがいないかの確認
   for(const user of users) {
-    console.log(user.name, user.ws._isClosed);
     //いたら削除
     if(user.ws._isClosed === true) {
+      console.log("emitUserList : " + user.name);
       deleteUser(user.userId);
     }
   }

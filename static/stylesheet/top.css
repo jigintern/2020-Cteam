@@ -7,7 +7,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-image: url("../pic/SiteBG.jpg");
+    background-image: url("../pic/JSIsiteBG.png");
 }
 a,a:hover{
     color: #000000;
@@ -34,8 +34,8 @@ h1,h2{
     font-family: "Nico Moji";
 }
 #title{
-    font-size: 7vw;
-    margin-top: 15vw;
+    font-size: 15vw;
+    margin-top: 10vw;
     margin-right: 5vw;
 }
 #phrase{
@@ -67,17 +67,9 @@ h1,h2{
 }
 h3{
     font-size: 3.5vw;
-    opacity: 0;
-    transition: opacity 0s ease .8s;
 }
-h4:hover{
-    opacity: 1;
-}
-#introduce{
-    font-size:2vw;
-}
-.chat-items p{
-    transition-delay: .8s;
+video{
+    width: 100%;
 }
 /*@media screen and (max-width:950px) and (min-width:481px){
     #title{
@@ -99,8 +91,8 @@ h4:hover{
         text-align: center;
     }
     #title{
-        font-size: 15vw;
-        margin-top: 30vh;
+        font-size: 30vw;
+        margin-top: 20vh;
         margin-right: 0;
     }
     #phrase{

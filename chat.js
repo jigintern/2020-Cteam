@@ -145,10 +145,8 @@ function emitUserList(groupName) {
   for(const user of users) {
     //いたら削除
     if(user.ws._isClosed === true) {
-      console.log(groupsMap);
       console.log("emitUserList : " + user.name);
       deleteUser(user.userId);
-      console.log(groupsMap);
     }
   }
   users = groupsMap.get(groupName) || [];
@@ -251,10 +249,11 @@ function deleteUser(userId) {
   if(!userObj) {
     return;
   }
+  console.log(groupsMap);
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
   usersMap.delete(userId);
-  groupsMap.delete(userId);
+  console.log(groupsMap);
   emitUserList(userObj.groupName);
 }

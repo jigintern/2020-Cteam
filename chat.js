@@ -230,9 +230,7 @@ function deleteUser(userId) {
   let users = groupsMap.get(userObj.groupName) || [];
   users = users.filter((u) => u.userId !== userId);
   groupsMap.set(userObj.groupName, users);
-
-  console.log(usersMap);
-
+  console.log("groupsMap = " + groupsMap);
   usersMap.delete(userId);
-  groupsMap.delete(userId);
+  console.log("usersMap = " + usersMap);
 }

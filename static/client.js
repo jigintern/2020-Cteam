@@ -101,6 +101,8 @@ function onMessageReceived(event) {
 
 //メッセージの埋め込み
 function appendMessage(message) {
+  message.message = escapeHtml(message.message);
+  message.name = escapeHtml(message.name);
   const messageEl = document.createElement("div");
   if (message.sender === "me") {
     messageEl.className = "message message-to";
@@ -118,6 +120,15 @@ function appendMessage(message) {
       <p class="message-text">${message.message}</p> `;
   }
   chatMessagesCtr.appendChild(messageEl);
+}
+
+function escapeHtml(message) {
+  message = message.replace(/&/g, '&amp;');
+  message = message.replace(/</g, '&lt;');
+  message = message.replace(/>/g, '&gt;');
+  message = message.replace(/"/g, '&quot;');
+  message = message.replace(/'/g, '&#39;');
+  return message;
 }
 
 //名前とグループ名をURLから取得

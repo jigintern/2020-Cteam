@@ -134,8 +134,8 @@ function emitLogoutMsssage(userId) {
 function emitUserList(groupName) {
   // ユーザー取得
   const users = groupsMap.get(groupName) || [];
-  for await(const user of users) {
-    console.log(user.ws._isClosed);
+  for(const user of users) {
+    console.log(user.name, user.ws._isClosed);
     if(user.ws._isClosed === true) {
       deleteUser(user.userId);
     }

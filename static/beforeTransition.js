@@ -5,4 +5,4 @@ $(document).on("click", ".submitButton", function () {
   window.location.href = url;
 });
 
-$(() => $(".roomName").text("Room" + sessionStorage.getItem("roomId")));
+$(() => $(".roomName").text(sessionStorage.getItem("roomId")));

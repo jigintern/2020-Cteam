@@ -224,7 +224,7 @@ function leaveGroup(userId) {
 //ユーザーリストからの削除
 function deleteUser(userId) {
   const userObj = usersMap.get(userId);
-  console.log(userObj.name + "の削除");
+  console.log(userObj);
   if(!userObj) {
     return;
   }

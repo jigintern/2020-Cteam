@@ -10,10 +10,9 @@ let leaveGroupBtn = document.querySelector("#leaveGroupBtn");
 let groupName = document.querySelector("#groupName");
 
 window.addEventListener("DOMContentLoaded", () => {
-  if(window.location.host === "localhost:8884") {
+  if (window.location.host === "localhost:8884") {
     ws = new WebSocket(`ws://localhost:8883/ws`);
-  }
-  else if(window.location.host === "t3.intern.jigd.info") {
+  } else if (window.location.host === "t3.intern.jigd.info") {
     ws = new WebSocket(`wss://t3.intern.jigd.info/ws`);
   }
   ws.addEventListener("open", onConnectionOpen);
@@ -31,8 +30,7 @@ sendMessageForm.onsubmit = (ev) => {
   };
   try {
     ws.send(JSON.stringify(event));
-  }
-  catch(e) {
+  } catch (e) {
     console.log("メッセージ送信時のエラー");
   }
   messageInput.value = "";
@@ -60,8 +58,7 @@ function onConnectionOpen() {
   };
   try {
     ws.send(JSON.stringify(event));
-  }
-  catch(e) {
+  } catch (e) {
     console.log("接続時のエラー");
   }
 }
@@ -101,7 +98,11 @@ function onMessageReceived(event) {
 
 //メッセージの埋め込み
 function appendMessage(message) {
-  message.message = escapeHtml(message.message);
+  message.message = escapeHtml(message.message).trim();
+  if (message.message.length === 0) {
+    return;
+  }
+
   message.name = escapeHtml(message.name);
   const messageEl = document.createElement("div");
   if (message.sender === "me") {
@@ -123,11 +124,11 @@ function appendMessage(message) {
 }
 
 function escapeHtml(message) {
-  message = message.replace(/&/g, '&amp;');
-  message = message.replace(/</g, '&lt;');
-  message = message.replace(/>/g, '&gt;');
-  message = message.replace(/"/g, '&quot;');
-  message = message.replace(/'/g, '&#39;');
+  message = message.replace(/&/g, "&amp;");
+  message = message.replace(/</g, "&lt;");
+  message = message.replace(/>/g, "&gt;");
+  message = message.replace(/"/g, "&quot;");
+  message = message.replace(/'/g, "&#39;");
   return message;
 }
 

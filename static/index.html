@@ -6,38 +6,11 @@
     <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!--    <script type="text/javascript">
-       $(function(){
-        /*chat-itemsの表示を消す*/
-         $('.chat-items').css("opacity","0");
-         $(window).scroll(function (){
-           $(".chat-items").each(function(){
-                var imgPos = $(this).offset().top;    
-                var scroll = $(window).scrollTop();
-                var windowHeight = $(window).height();
-            if (scroll > imgPos - windowHeight + windowHeight/15){
-                $("p, div",this).css("opacity","1" );
-                $("p",this).css({ 
-                    "font-size": "100px",
-                    "padding": "0 20px 40px"
-                });
-            } else {
-                $("p, div",this).css("opacity","0" );
-                $("p",this).css({ 
-                      "font-size": "20px",
-                      "padding": "20px"
-                    });
-                  }
-             });
-          });
-        });
-    </script>-->
-    <title>いい感じのタイトル</title>
+    <title>GET</title>
 </head>
 <body>
     <div class="f-box"></div>
-        <h1 class="f-items" id="title">とてもよいアプリ</h1>
+        <h1 class="f-items" id="title">GET</h1>
         <p class="f-items" id="phrase">「なんとなく暇」はもう終わり。</p>
     </div>
     <div class="buttons">
@@ -46,13 +19,18 @@
     </div>
     <div class="chat-items">
         <h3 id="intro-question">その暇な時間、誰かと共有しませんか？</h3>
-        <h4 id="introduce">このアプリはチャット・ミニゲームなどで誰かと繋がり、</h4>
-            <div id="chat-list">
-                <p class="chat-list-L">こんにちは～！</p>
-                <p class="chat-list-R">今何してる？</p>
-                <p class="chat-list-L">それいいね！</p>
-                <p class="chat-list-R">イェーイ！</p>
-            </div>    
+        <video src="https://jigintern.github.io/2020-Cteam/static/pic/GET.mp4" playsinline muted loop  autoplay id="video"></video>
+        <p>※環境によっては動画が再生されない場合があります</p>
     </div>
+    <!--       <script type="text/javascript">
+    //import scroll value
+        var Yscroll = window.pageYOffset;
+        var VStatus = document.getElementById('video');
+        if (Yscroll < 200){
+            VStatus.play();
+        }else{
+            VStatus.pause();
+        }
+    </script>-->
 </body>
 </html>

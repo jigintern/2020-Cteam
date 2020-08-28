@@ -92,6 +92,8 @@ function onMessageReceived(event) {
       break;
     case "previousMessages":
       event.data.forEach(appendMessage);
+      const eltmp = chatMessagesCtr;
+      eltmp.scrollTop = 10000000;
       break;
     case "roomFull":
       redirect();
